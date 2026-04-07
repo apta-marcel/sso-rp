@@ -15,6 +15,8 @@ import { Route as IndexRouteImport } from './routes/index'
 import { Route as AuthRegisterRouteImport } from './routes/auth/register'
 import { Route as AuthLoginRouteImport } from './routes/auth/login'
 import { Route as AppDashboardRouteImport } from './routes/app/dashboard'
+import { Route as AppOrganizationsSelectRouteImport } from './routes/app/organizations/select'
+import { Route as AppOrganizationsCreateRouteImport } from './routes/app/organizations/create'
 import { Route as ApiAuthSplatRouteImport } from './routes/api/auth/$'
 
 const AuthRoute = AuthRouteImport.update({
@@ -47,6 +49,16 @@ const AppDashboardRoute = AppDashboardRouteImport.update({
   path: '/dashboard',
   getParentRoute: () => AppRoute,
 } as any)
+const AppOrganizationsSelectRoute = AppOrganizationsSelectRouteImport.update({
+  id: '/organizations/select',
+  path: '/organizations/select',
+  getParentRoute: () => AppRoute,
+} as any)
+const AppOrganizationsCreateRoute = AppOrganizationsCreateRouteImport.update({
+  id: '/organizations/create',
+  path: '/organizations/create',
+  getParentRoute: () => AppRoute,
+} as any)
 const ApiAuthSplatRoute = ApiAuthSplatRouteImport.update({
   id: '/api/auth/$',
   path: '/api/auth/$',
@@ -61,6 +73,8 @@ export interface FileRoutesByFullPath {
   '/auth/login': typeof AuthLoginRoute
   '/auth/register': typeof AuthRegisterRoute
   '/api/auth/$': typeof ApiAuthSplatRoute
+  '/app/organizations/create': typeof AppOrganizationsCreateRoute
+  '/app/organizations/select': typeof AppOrganizationsSelectRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
@@ -70,6 +84,8 @@ export interface FileRoutesByTo {
   '/auth/login': typeof AuthLoginRoute
   '/auth/register': typeof AuthRegisterRoute
   '/api/auth/$': typeof ApiAuthSplatRoute
+  '/app/organizations/create': typeof AppOrganizationsCreateRoute
+  '/app/organizations/select': typeof AppOrganizationsSelectRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -80,6 +96,8 @@ export interface FileRoutesById {
   '/auth/login': typeof AuthLoginRoute
   '/auth/register': typeof AuthRegisterRoute
   '/api/auth/$': typeof ApiAuthSplatRoute
+  '/app/organizations/create': typeof AppOrganizationsCreateRoute
+  '/app/organizations/select': typeof AppOrganizationsSelectRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -91,6 +109,8 @@ export interface FileRouteTypes {
     | '/auth/login'
     | '/auth/register'
     | '/api/auth/$'
+    | '/app/organizations/create'
+    | '/app/organizations/select'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
@@ -100,6 +120,8 @@ export interface FileRouteTypes {
     | '/auth/login'
     | '/auth/register'
     | '/api/auth/$'
+    | '/app/organizations/create'
+    | '/app/organizations/select'
   id:
     | '__root__'
     | '/'
@@ -109,6 +131,8 @@ export interface FileRouteTypes {
     | '/auth/login'
     | '/auth/register'
     | '/api/auth/$'
+    | '/app/organizations/create'
+    | '/app/organizations/select'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -162,6 +186,20 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AppDashboardRouteImport
       parentRoute: typeof AppRoute
     }
+    '/app/organizations/select': {
+      id: '/app/organizations/select'
+      path: '/organizations/select'
+      fullPath: '/app/organizations/select'
+      preLoaderRoute: typeof AppOrganizationsSelectRouteImport
+      parentRoute: typeof AppRoute
+    }
+    '/app/organizations/create': {
+      id: '/app/organizations/create'
+      path: '/organizations/create'
+      fullPath: '/app/organizations/create'
+      preLoaderRoute: typeof AppOrganizationsCreateRouteImport
+      parentRoute: typeof AppRoute
+    }
     '/api/auth/$': {
       id: '/api/auth/$'
       path: '/api/auth/$'
@@ -174,10 +212,14 @@ declare module '@tanstack/react-router' {
 
 interface AppRouteChildren {
   AppDashboardRoute: typeof AppDashboardRoute
+  AppOrganizationsCreateRoute: typeof AppOrganizationsCreateRoute
+  AppOrganizationsSelectRoute: typeof AppOrganizationsSelectRoute
 }
 
 const AppRouteChildren: AppRouteChildren = {
   AppDashboardRoute: AppDashboardRoute,
+  AppOrganizationsCreateRoute: AppOrganizationsCreateRoute,
+  AppOrganizationsSelectRoute: AppOrganizationsSelectRoute,
 }
 
 const AppRouteWithChildren = AppRoute._addFileChildren(AppRouteChildren)

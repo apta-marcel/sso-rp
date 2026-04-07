@@ -23,7 +23,7 @@ export function LoginForm({
   const { mutate, isPending } = useMutation(
     loginMutation({
       onSuccess: () => {
-        navigate({ to: '/app/dashboard' });
+        navigate({ to: '/app/organizations/select' });
       },
       onError: (e) => console.log('e :>> ', e),
     })
