@@ -19,6 +19,9 @@ import {
   useSidebar,
 } from "@/components/ui/sidebar"
 import { ChevronsUpDownIcon, SparklesIcon, BadgeCheckIcon, CreditCardIcon, BellIcon, LogOutIcon } from "lucide-react"
+import { useMutation } from "@tanstack/react-query"
+import { logoutMutation } from "@/queries/auth.query"
+import { useRouter } from "@tanstack/react-router"
 
 export function NavUser({
   user,
@@ -30,6 +33,16 @@ export function NavUser({
   }
 }) {
   const { isMobile } = useSidebar()
+  const router = useRouter()
+
+  const { mutate: logout } = useMutation(
+    logoutMutation({
+      onSuccess: () => {
+        router.invalidate()
+        router.navigate({ to: "/auth/login" })
+      },
+    })
+  )
 
   return (
     <SidebarMenu>
@@ -96,7 +109,7 @@ export function NavUser({
               </DropdownMenuItem>
             </DropdownMenuGroup>
             <DropdownMenuSeparator />
-            <DropdownMenuItem>
+            <DropdownMenuItem onClick={() => logout()}>
               <LogOutIcon
               />
               Log out
